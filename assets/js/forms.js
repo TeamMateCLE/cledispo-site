@@ -142,6 +142,11 @@
         goThanks(name);
         return;
       }
+      // One readable block of every field, used as the body of the notification email.
+      payload.summary = Object.keys(payload).filter(function (k) { return k !== "summary"; }).map(function (k) {
+        var v = payload[k];
+        return k + ": " + (Array.isArray(v) ? v.join(", ") : (v == null ? "" : v));
+      }).join("\n");
       var btn = form.querySelector('[type="submit"]');
       var label = btn ? btn.innerHTML : "";
       if (btn) { btn.disabled = true; btn.textContent = "Sending…"; }

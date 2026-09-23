@@ -31,7 +31,7 @@ window.SITE_CONFIG = {
    * Leave empty ("") while testing: submissions are printed to the browser
    * console and the visitor still lands on the thank-you page.
    */
-  FORM_ENDPOINT: "",
+  FORM_ENDPOINT: "https://hooks.zapier.com/hooks/catch/23924041/4dvth39/", // Zapier "Website form submissions" zap
 
   /*
    * FORM_SEND_AS_TEXT — set to true if the endpoint is a Google Apps Script
@@ -39,7 +39,7 @@ window.SITE_CONFIG = {
    * The body is still the same JSON; only the Content-Type header changes to
    * text/plain, which browsers send without a CORS pre-check.
    */
-  FORM_SEND_AS_TEXT: false,
+  FORM_SEND_AS_TEXT: true,
 
   /* Contact details shown across the site */
   PHONE_DISPLAY: "(216) 930-3281",
