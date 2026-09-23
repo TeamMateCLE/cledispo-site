@@ -20,7 +20,7 @@ window.SITE_CONFIG = {
    * If this link is empty, broken, or not public, the site quietly falls back
    * to data/listings.csv so the page never shows up blank.
    */
-  LISTINGS_CSV_URL: "",
+  LISTINGS_CSV_URL: "https://docs.google.com/spreadsheets/d/14xKwYYSQ7O28U1lKyLjLdVvgPwGOeVMGeqXs55p0ye8/gviz/tq?tqx=out:csv&headers=1&sheet=Listings", // "Buyer Website Listings (cledispo.com) - LIVE"
 
   /*
    * FORM_ENDPOINT — where the three forms (property inquiry, buyers list,
