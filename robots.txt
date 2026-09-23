@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /_screenshots/
+Disallow: /_dev/
+
+Sitemap: https://www.cledispo.com/sitemap.xml
