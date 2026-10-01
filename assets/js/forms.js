@@ -162,7 +162,7 @@
         if (btn) { btn.disabled = false; btn.innerHTML = label; }
         if (status) {
           status.classList.add("error");
-          status.innerHTML = "Sorry — that didn’t go through. Please try again, or call/text us at <a href=\"tel:" + (CFG.PHONE_E164 || "+12169303281") + "\">" + (CFG.PHONE_DISPLAY || "(216) 930-3281") + "</a>.";
+          status.innerHTML = "Sorry — that didn’t go through. Please try again, or call/text us at <a href=\"tel:" + (CFG.PHONE_E164 || "+12167103474") + "\">" + (CFG.PHONE_DISPLAY || "(216) 710-3474") + "</a>.";
         }
       });
     });

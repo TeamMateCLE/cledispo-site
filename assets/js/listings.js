@@ -431,11 +431,11 @@
     }
     var priceLabel = l.status === "Sold" ? "Sold" : "Asking price";
     var bigPrice = l.price != null ? money(l.price) : (l.status === "Sold" ? "Sold" : "Contact for price");
-    var phoneHref = "tel:" + (CFG.PHONE_E164 || "+12169303281");
+    var phoneHref = "tel:" + (CFG.PHONE_E164 || "+12167103474");
     var ctas = l.status === "Sold"
       ? '<a class="btn btn--primary btn--block" href="' + ROOT + 'buyers-list/">Get the next deal first</a>'
       : '<a class="btn btn--primary btn--block" href="#inquire" data-intent="offer">Request info / make an offer</a>';
-    ctas += '<a class="btn btn--ghost btn--block" href="' + phoneHref + '">' + ICONS.phone + "Call or text " + esc(CFG.PHONE_DISPLAY || "(216) 930-3281") + "</a>";
+    ctas += '<a class="btn btn--ghost btn--block" href="' + phoneHref + '">' + ICONS.phone + "Call or text " + esc(CFG.PHONE_DISPLAY || "(216) 710-3474") + "</a>";
 
     // Facts
     var facts = [];

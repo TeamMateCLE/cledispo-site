@@ -42,8 +42,8 @@ window.SITE_CONFIG = {
   FORM_SEND_AS_TEXT: true,
 
   /* Contact details shown across the site */
-  PHONE_DISPLAY: "(216) 930-3281",
-  PHONE_E164: "+12169303281",
+  PHONE_DISPLAY: "(216) 710-3474",
+  PHONE_E164: "+12167103474",
   EMAIL: "sales@rightpricehomebuyers.com",
   INSTAGRAM_URL: "https://www.instagram.com/rightpricehomebuyers?utm_source=ig_web_button_share_sheet&igsh=dnZweTU5Y2hhZjhn",
   FACEBOOK_URL: "https://www.facebook.com/profile.php?id=61578637402555",
