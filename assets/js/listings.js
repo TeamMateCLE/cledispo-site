@@ -456,7 +456,7 @@
     var mapAddr = masked ? [l.address.replace(/^\S*\*\S*\s+/, ""), cityLine(l)].filter(Boolean).join(", ") : addr;
     var mapHTML = mapAddr
       ? '<div class="prop-section"><h2>Location</h2><div class="map-frame"><iframe title="Map of ' + esc(mapAddr) + '" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=' + encodeURIComponent(mapAddr) + "&z=" + (masked ? 15 : 16) + '&output=embed"></iframe></div>' +
-        (masked ? '<p class="map-note">The map shows the street. We share the exact address when you request info.</p>' : "") + "</div>"
+        (masked ? '<p class="map-note">' + (l.status === "Sold" ? "The map shows the street." : "The map shows the street. We share the exact address when you request info.") + '</p>' : "") + "</div>"
       : "";
 
     root.innerHTML =
