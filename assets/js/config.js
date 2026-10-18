@@ -31,7 +31,7 @@ window.SITE_CONFIG = {
    * Leave empty ("") while testing: submissions are printed to the browser
    * console and the visitor still lands on the thank-you page.
    */
-  FORM_ENDPOINT: "https://hooks.zapier.com/hooks/catch/23924041/4dvth39/", // Zapier "Website form submissions" zap
+  FORM_ENDPOINT: "https://app.lockboxcrm.com/f/fS2Rahgrjg6Ni17R", // Lockbox web form "Buyer Website" (straight in, no zap; 10/18/2026)
 
   /*
    * FORM_SEND_AS_TEXT — set to true if the endpoint is a Google Apps Script
