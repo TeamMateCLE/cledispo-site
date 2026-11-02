@@ -1,5 +1,6 @@
 /*
- * Listings: loads deals from the Google Sheet CSV (SITE_CONFIG.LISTINGS_CSV_URL)
+ * Listings: loads deals from the Google Sheet CSV (SITE_CONFIG.LISTINGS_CSV_URL) and, side by side, Lockbox
+ * CRM's feed (SITE_CONFIG.LOCKBOX_LISTINGS_URL; a Lockbox row replaces a sheet row with the same id),
  * or the bundled data/listings.csv, then renders the home page, the listings
  * page and the single property page.
  */
@@ -161,20 +162,39 @@
     });
   }
 
+  // Two sources side by side: the Google Sheet and Lockbox CRM's feed (SITE_CONFIG.LOCKBOX_LISTINGS_URL). A Lockbox
+  // row replaces a sheet row with the same id. If one source fails the other still shows; the bundled
+  // data/listings.csv is used only when both fail (or neither is set).
+  function loadSource(url, name) {
+    url = (url || "").trim();
+    if (!url) return Promise.reject(new Error("no " + name + " configured"));
+    return fetchText(url, 8000).then(function (t) {
+      var l = parseListings(t);
+      if (!l) throw new Error(name + " did not return listings CSV");
+      return l;
+    });
+  }
+  function mergeListings(sheet, lockbox) {
+    var byId = {}, out = [];
+    (lockbox || []).forEach(function (l) { byId[l.id] = l; });
+    (sheet || []).forEach(function (l) { if (!byId[l.id]) out.push(l); });
+    (lockbox || []).forEach(function (l) { l.source = "lockbox"; out.push(l); });
+    return out;
+  }
+  function settle(p) { return p.then(function (v) { return { ok: true, v: v }; }, function (e) { return { ok: false, e: e }; }); }
+
   var loading = null;
   function loadListings() {
     if (loading) return loading;
-    var remote = (CFG.LISTINGS_CSV_URL || "").trim();
-    var p = remote
-      ? fetchText(remote, 8000).then(function (t) {
-          var l = parseListings(t);
-          if (!l) throw new Error("Sheet did not return listings CSV");
-          RPD.listingsSource = "sheet";
-          return l;
-        })
-      : Promise.reject(new Error("no sheet configured"));
-    loading = p.catch(function (err) {
-      if (remote) console.warn("[listings] Google Sheet unavailable, using bundled data/listings.csv:", err && err.message);
+    var sheetUrl = CFG.LISTINGS_CSV_URL, lockboxUrl = CFG.LOCKBOX_LISTINGS_URL;
+    loading = Promise.all([settle(loadSource(sheetUrl, "Google Sheet")), settle(loadSource(lockboxUrl, "Lockbox"))]).then(function (r) {
+      var sheet = r[0], lockbox = r[1];
+      if (!sheet.ok && (sheetUrl || "").trim()) console.warn("[listings] Google Sheet unavailable:", sheet.e && sheet.e.message);
+      if (!lockbox.ok && (lockboxUrl || "").trim()) console.warn("[listings] Lockbox listings unavailable:", lockbox.e && lockbox.e.message);
+      if (sheet.ok || lockbox.ok) {
+        RPD.listingsSource = sheet.ok && lockbox.ok ? "sheet+lockbox" : sheet.ok ? "sheet" : "lockbox";
+        return mergeListings(sheet.ok ? sheet.v : [], lockbox.ok ? lockbox.v : []);
+      }
       return fetchText(BUNDLED_CSV, 8000).then(function (t) {
         RPD.listingsSource = "bundled";
         return parseListings(t) || [];
@@ -589,6 +609,7 @@
   RPD.parseListings = parseListings;
   RPD.resolvePhoto = resolvePhoto;
   RPD.loadListings = loadListings;
+  RPD.mergeListings = mergeListings;
   RPD.resetListings = function () { loading = null; };
   RPD.redirectOldPropertyUrl = redirectOldPropertyUrl;
 

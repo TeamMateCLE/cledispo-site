@@ -23,6 +23,13 @@ window.SITE_CONFIG = {
   LISTINGS_CSV_URL: "https://docs.google.com/spreadsheets/d/14xKwYYSQ7O28U1lKyLjLdVvgPwGOeVMGeqXs55p0ye8/gviz/tq?tqx=out:csv&headers=1&sheet=Listings", // "Buyer Website Listings (cledispo.com) - LIVE"
 
   /*
+   * LOCKBOX_LISTINGS_URL: listings published from Lockbox CRM (Ready for Website > Publish), with watermarked
+   * photos. Read side by side with the sheet above: a Lockbox row replaces a sheet row with the same id, and if
+   * either source fails the other still shows. Leave empty ("") to use the sheet only.
+   */
+  LOCKBOX_LISTINGS_URL: "https://app.lockboxcrm.com/listings/cledispo.csv",
+
+  /*
    * FORM_ENDPOINT — where the three forms (property inquiry, buyers list,
    * contact) send their data. Any URL that accepts a JSON POST works:
    * a Zapier / Make "Catch Hook" webhook, a Google Apps Script web app, the
